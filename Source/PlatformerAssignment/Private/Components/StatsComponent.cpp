@@ -68,7 +68,7 @@ void UStatsComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 
 	FString OutputMessage = FString(TEXT("Stamina: ") + FString::FromInt(GetStamina()));
 
-	UKismetSystemLibrary::PrintString(GetWorld(), OutputMessage);
+	//UKismetSystemLibrary::PrintString(GetWorld(), OutputMessage);
 	
 }
 
