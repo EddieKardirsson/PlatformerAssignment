@@ -54,9 +54,11 @@ class APlatformerAssignmentCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* NavigateMenuAction;
 
+	/** Reference to Sound Cue for jump-sound. Insert the corresponding asset */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Audio", meta = (AllowPrivateAccess = "true"))
 	class USoundCue* JumpSound;
 
+	/** Cached reference to the UStatsComponent that holds the stats of the player */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
 	class UStatsComponent* StatsComponent;
 		
@@ -77,9 +79,11 @@ protected:
 
 	void StopSprint();
 
+	/** Pauses the game when called, implemented in Blueprints */
 	UFUNCTION(BlueprintImplementableEvent)
 	void OpenPauseMenu();
 
+	/** Navigating on pause menu, implemented in Blueprints */
 	UFUNCTION(BlueprintImplementableEvent)
 	void NavigateMenu(const FInputActionValue& Value);
 	

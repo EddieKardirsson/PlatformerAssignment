@@ -13,24 +13,32 @@ struct FCharacterStats
 
 public:
 
+	/** The character name, insert the name in Blueprints if you want to create more playable characters
+	 * than UE5-Quinn that is the default playable character */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
 	FName Name;
 
+	/** The maximum amount of health */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
 	float MaxHealth;
 
+	/** The maximum amount of stamina */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
 	float MaxStamina;
 
+	/** Current health of the character */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
 	float Health;
 
+	/** Current stamina of the character */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
 	float Stamina;
 
+	/** Amount of coins collected */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
 	int32 Coins;
 
+	/** Amount of stars collected */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
 	int32 Stars;
 
@@ -47,13 +55,15 @@ public:
 
 private:
 
+	/** Variable for player Stats that are to be stored */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
 	FCharacterStats Stats;
 
-
+	/** The rate per second the Stamina is drained (while sprinting) */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
 	float StaminaDrainRate;
 
+	/** The rate per second Stamina is replenished (while not sprinting and when not jumping) */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats", meta = (AllowPrivateAccess = "true"))
 	float StaminaRegenerationRate;
 
@@ -65,6 +75,7 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	// Helper functions for getting and setting the FCharacterStats below
 	
 	UFUNCTION(BlueprintCallable) FORCEINLINE void SetName(const FName InName) { Stats.Name = InName; }
 	UFUNCTION(BlueprintCallable) FORCEINLINE void SetMaxHealth(const float InHealth) { Stats.MaxHealth = InHealth; }
@@ -89,14 +100,18 @@ public:
 
 private:
 
+	// Boolean checks returning true or false depending on the corresponding conditions.
 	bool CheckIfSprinting() const;
 	bool CheckIfMoving() const;
 
+	// This function activates when player is sprinting
 	void DrainStamina(float DeltaTime);
+	// This function is always active except when sprinting
 	void RegenerateStamina(float DeltaTime);
 
 protected:
 
+	/** Delegate-bound function that fires off when taking damage */
 	UFUNCTION()
 	void OnTakeAnyDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 };
